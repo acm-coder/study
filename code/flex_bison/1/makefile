@@ -14,4 +14,4 @@ scanner.tab.h: scanner.II
 .PHONY: clean
 
 clean:
-	rm lex.yy.c scanner.tab.h
+	rm lex.yy.c scanner.tab.h a.out	
