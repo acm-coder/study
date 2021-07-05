@@ -1,9 +1,14 @@
-parse.yy: a.out
+
+CPP_FLAGS = -std=c++11 -g
 
 
-a.out: parser.yy
+parser: parser.yy
 	flex $^
-	g++ lex.yy.c -o $@ -lfl
+	g++ lex.yy.c -o a.out -lfl $(CPP_FLAGS)
+
+sym: sym_parser.yy
+	flex $^
+	g++ lex.yy.c -o a.out -lfl $(CPP_FLAGS)
 
 
 .PHONY: clean
