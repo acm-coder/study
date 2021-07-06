@@ -18,7 +18,7 @@
     struct symbol* lookup(char* str);
     void addref(int, char*, char*, int);
     char * cur_filename;
-
+    void pref();
 
 %}
 
@@ -45,7 +45,7 @@ the |
 this	|
 to
 
-[a-z]+(\'(s|t))? { addref(yylineno, cur_filename, yytext, 0); }
+[a-z\.0-9=+-]+(\'(s|t))? { addref(yylineno, cur_filename, yytext, 0); }
 .|\n
 %%
 
@@ -57,7 +57,8 @@ int main(int argc, char** argv) {
     }
     else {
 	for(int i = 1; i < argc; ++ i) {
-	    FILE* file = fopen(argv[i], "rb");
+	    cur_filename = argv[i];
+	    FILE* file = fopen(cur_filename, "rb");
 	    if (!file) {
 		fprintf(stderr, "%s open failed.\n", argv[i]);
 		return 1;
@@ -68,8 +69,16 @@ int main(int argc, char** argv) {
 	    yylex();
 	    fclose(file);
 	}
+	pref();
     }
     return 0;
+}
+
+void pref() {
+    for(int i = 0; i < NHASH; ++ i)
+	if (symtab[i].reflist)
+	    for(auto t = symtab[i].reflist; t; t = t->next)
+		printf("filename: %s, wrod: %s, lineno: %d, flags: %d\n", t->filename, symtab[i].name, t->lineno, t->flags);
 }
 
 unsigned int symhash(char* word) {
@@ -121,6 +130,7 @@ void addref(int lineno, char* file_name, char* word, int flag) {
     r->flags = flag;
 
     sp->reflist = r;
+    sp->name = strdup(word);
 }
 
 
