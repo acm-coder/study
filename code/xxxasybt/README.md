@@ -5,3 +5,4 @@
 ## 提高篇	    tgp
 ## 提高训练篇	    tgxlp
 
+[练习链接](http://ybt.ssoier.cn:8088/index.php)
