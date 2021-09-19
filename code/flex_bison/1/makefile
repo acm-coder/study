@@ -7,7 +7,7 @@ lex.yy.c: parser.yy
 	flex $^
 
 scanner.tab.h: scanner.II
-	bison -d $^
+	bison -d $^ --report=all
 	mv scanner.tab.II $@
 
 
