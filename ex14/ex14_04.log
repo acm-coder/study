@@ -1,0 +1,4 @@
+0xbfae0610->huge_data()              #1. 构造main的a
+0xbfae05e8->huge_data(1024)          #2. 构造create_data中的h
+0xbfae0618->huge_data(0xbfae05e8)    #3. 将h内容复制构造到预留空间
+0xbfae0610->operator=(0xbfae0618)    #4. 将预留空间值赋予main中的a
